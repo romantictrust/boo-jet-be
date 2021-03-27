@@ -1,0 +1,49 @@
+{
+  "name": "boo-jet-be",
+  "version": "1.0.0",
+  "description": "Budget planning app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "lint": "eslint --ext .js --ignore-path .gitignore ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romantictrust/boo-jet-be.git"
+  },
+  "author": "Vladislav Tsirkunov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romantictrust/boo-jet-be/issues"
+  },
+  "homepage": "https://github.com/romantictrust/boo-jet-be#readme",
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-security": "^1.4.0",
+    "husky": "^5.2.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}

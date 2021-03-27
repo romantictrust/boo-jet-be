@@ -1,0 +1,12 @@
+{
+    "root": true,
+    "env": {
+        "node": true
+      },
+    "extends": ["airbnb-base", "prettier", "plugin:security/recommended"],
+    "plugins": ["prettier", "security"],
+    "rules": {
+        "prettier/prettier": ["error"]
+      },
+      "indent": ["error", "tab"]
+}
