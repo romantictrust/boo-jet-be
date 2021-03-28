@@ -35,11 +35,15 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.5",
-    "mongoose": "^5.12.2"
+    "mongoose": "^5.12.2",
+    "nodemailer": "^6.5.0"
   },
   "husky": {
     "hooks": {

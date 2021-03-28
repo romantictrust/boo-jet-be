@@ -1,13 +1,14 @@
-import mongodb from "mongodb";
+import mongoose from "mongoose";
 import { dbUri } from "../constants/db.js";
 
-const { MongoClient } = mongodb;
-
 const mongoConnect = async () => {
-  const client = new MongoClient(dbUri, {
+  // Configure mongoose's promise to global promise
+  mongoose.Promise = global.Promise;
+
+  await mongoose.connect(dbUri, {
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  await client.connect();
 };
 export default mongoConnect;
