@@ -5,7 +5,7 @@ import mailingRoutes from "./mailing.js";
 
 const router = Router();
 
-router.use("api/users", usersRoutes);
+router.use("/api/users", usersRoutes);
 router.use("/mailing", mailingRoutes);
 router.use("/", authRoutes);
 

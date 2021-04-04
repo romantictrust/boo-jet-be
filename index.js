@@ -4,6 +4,7 @@ import cors from "cors";
 
 import routes from "./routes/index.js";
 import mongoConnect from "./config/db.js";
+import configurePassport from "./config/passport.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ app.use(cors());
 app.use(express.json());
 app.set("json spaces", 2);
 app.set("view engine", "ejs");
+configurePassport();
 
 // use routes
 app.use("/", routes);

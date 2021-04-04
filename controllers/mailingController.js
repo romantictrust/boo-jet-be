@@ -4,7 +4,8 @@ import { mailingMessages, templates } from "../constants/mailing.js";
 
 const Users = mongoose.model("Users");
 
-export const collectEmail_post = async (user, res) => {
+export const collectEmail_post = (req, res) => {
+  const user = req.body || req;
   // We have a new user! Send them a confirmation email.
   if (user) {
     sendEmail(user.email, templates.confirm(user.id));
@@ -40,5 +41,5 @@ export const confirmEmail_get = (req, res) => {
         res.json(mailingMessages.alreadyConfirmed);
       }
     })
-    .catch(() => res.json(mailingMessages.couldNotFind));
+    .catch(() => res.json({ error: mailingMessages.couldNotFind }));
 };

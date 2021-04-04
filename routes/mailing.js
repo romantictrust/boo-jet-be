@@ -8,8 +8,7 @@ import {
 const router = Router();
 
 router.post("/collect", collectEmail_post);
-router.post("/confirm", confirmEmail_get);
-router.post("/reconfirm", auth.optional, confirmEmail_get);
+router.post("/reconfirm", auth.optional, collectEmail_post);
 router.get("/confirm/:id", confirmEmail_get);
 
 export default router;
