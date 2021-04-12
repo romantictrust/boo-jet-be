@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
+import SourcesSchema from "./budget/Sources.js";
+import WidgetsSchema from "./Widgets.js";
 
 const { Schema } = mongoose;
 
@@ -24,7 +26,8 @@ const UsersSchema = new Schema(
       minlength: 5,
       maxlength: 50,
     },
-    bills: {},
+    budgetSources: [SourcesSchema],
+    widgets: [WidgetsSchema],
     hash: String,
     salt: String,
   },
