@@ -33,7 +33,7 @@ const SourcesSchema = new Schema({
   color: {
     type: String,
     required: false,
-    default: "#f0f0f0",
+    default: "rgba(51, 163, 98, 0.205)",
     validate: [colorValidator, "Not a valid color for bill"],
   },
 });
