@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
-import actionTypes from "../../constants/types/budgetActions.js";
+import actionTypes, {
+  actionsCategories,
+} from "../../constants/types/budgetActions.js";
 
 const { Schema } = mongoose;
 
 const actionIdValidator = (v) => actionTypes.find((action) => action.id === v);
+const actionCategoryValidator = (v) =>
+  actionsCategories.find((category) => category.id === v);
 
 const ActionsSchema = new Schema(
   {
@@ -17,16 +21,21 @@ const ActionsSchema = new Schema(
       minlength: 2,
       maxlength: 25,
     },
+    category: {
+      type: Number,
+      required: true,
+      validate: [actionCategoryValidator, "Not valid type for action category"],
+    },
     value: {
       type: Number,
       required: true,
       minimum: 0,
       exclusiveMinimum: true,
     },
-    createdAt: {
+    date: {
       type: Date,
     },
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: { date: "created_at" } }
 );
 export default ActionsSchema;
