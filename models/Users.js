@@ -51,7 +51,7 @@ UsersSchema.methods.uncryptPassword = function (password) {
 UsersSchema.methods.generateJWT = function () {
   const today = new Date();
   const expirationDate = new Date(today);
-  expirationDate.setDate(today.getDate() + 60);
+  expirationDate.setDate(today.getDate() + 20);
 
   return jwt.sign(
     {
@@ -69,9 +69,8 @@ UsersSchema.methods.toAuthJSON = function () {
     email: this.email,
     userName: this.userName,
     confirmed: this.confirmed,
-    bills: this.bills,
     token: this.generateJWT(),
   };
 };
 
-export default mongoose.model("Users", UsersSchema);
+export default mongoose.model("Users", UsersSchema, 'users');

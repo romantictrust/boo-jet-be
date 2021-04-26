@@ -11,14 +11,26 @@ const WidgetsSchema = new Schema({
     required: true,
     validate: [widgetIdValidator, "Not valid type for widget"],
   },
-  data: [{ type: Schema.ObjectId, ref: "SourcesSchema" }],
+  budget: {
+    type: Schema.Types.ObjectId,
+    ref: "BudgetSource",
+    require: true
+  },
+  width: { type: Number, required: true },
   name: {
     type: String,
     minlength: 2,
     maxlength: 25,
     default: "Widget",
   },
+  dateTo: {
+    type: Date,
+  },
+  dateFrom: {
+    type: Date,
+  },
 });
+mongoose.model("Widgets", WidgetsSchema, 'users');
 export default WidgetsSchema;
 
 // https://stackoverflow.com/questions/38051977/what-does-populate-in-mongoose-mean

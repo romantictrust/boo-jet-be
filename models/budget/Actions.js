@@ -38,4 +38,5 @@ const ActionsSchema = new Schema(
   },
   { timestamps: { date: "created_at" } }
 );
+mongoose.model("Actions", ActionsSchema, "users");
 export default ActionsSchema;

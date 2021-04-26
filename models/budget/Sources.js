@@ -37,5 +37,5 @@ const SourcesSchema = new Schema({
     validate: [colorValidator, "Not a valid color for bill"],
   },
 });
-mongoose.model("BudgetSource", SourcesSchema);
+mongoose.model("BudgetSource", SourcesSchema, 'users');
 export default SourcesSchema;
