@@ -30,5 +30,5 @@ app.use("/", routes);
 
 // use this middleware only in the bottom of code
 app.use((req, res) => {
-  res.status(404).render("errors/404", { errorCode: "404" });
+  res.status(404).render("errors/404", { url: req.originalUrl, errorCode: "404" });
 });

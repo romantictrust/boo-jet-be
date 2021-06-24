@@ -21,7 +21,6 @@ const sendEmail = async (to, content) => {
   };
 
   const email = { ...(await content), ...contacts };
-  console.log(email);
   await transporter.sendMail(email);
 };
 export default sendEmail;

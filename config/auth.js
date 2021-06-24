@@ -12,12 +12,21 @@ const getTokenFromHeaders = (req) => {
 };
 
 const auth = {
-  required: jwt({
-    secret: "secret",
-    userProperty: "payload",
-    algorithms: ["HS256"],
-    getToken: getTokenFromHeaders,
-  }),
+  required: [
+    jwt({
+      secret: "secret",
+      userProperty: "payload",
+      algorithms: ["HS256"],
+      getToken: getTokenFromHeaders,
+    }),
+    function (err, req, res, next) {
+      if (err.code === "invalid_token") {
+        res.status(err.status).send({
+          error: "Please refresh your session: Sign out then sign in again",
+        });
+      }
+    },
+  ],
   optional: jwt({
     secret: "secret",
     userProperty: "payload",
