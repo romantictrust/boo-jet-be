@@ -24,6 +24,34 @@ export const widget_post = (req, res) => {
   });
 };
 
+export const widget_edit = (req, res) => {
+  const widget = req.body.widget;
+
+  return UsersModel.findOneAndUpdate(
+    { "widgets._id": widget._id },
+    {
+      $set: {
+        "widgets.$.name": widget.name,
+        "widgets.$.type": widget.type,
+        "widgets.$.width": widget.width,
+        "widgets.$.budget": widget.budget,
+        "widgets.$.dateTo": widget.dateTo,
+        "widgets.$.dateFrom": widget.dateFrom,
+      },
+    },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        res.status(500).json({
+          error: `Cannot edit budget`,
+        });
+      } else {
+        res.status(200).send(user.widgets);
+      }
+    }
+  );
+};
+
 export const widgets_get = (req, res) => {
   const userId = req.params.userId;
   return UsersModel.findById(userId).exec((err, user) => {
