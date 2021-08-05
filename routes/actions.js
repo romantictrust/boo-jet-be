@@ -1,5 +1,6 @@
 import { Router } from "express";
 import auth from "../config/auth.js";
+import errorHandler from "../handlers/errorHandler.js";
 import {
   budgetAction_post,
   budgetAction_edit,
@@ -8,7 +9,7 @@ import {
 
 const router = Router();
 
-router.post("/", auth.required, budgetAction_post);
-router.post("/edit", auth.required, budgetAction_edit);
-router.post("/remove", auth.required, budgetAction_delete);
+router.post("/", auth.required, errorHandler(budgetAction_post));
+router.post("/edit", auth.required, errorHandler(budgetAction_edit));
+router.post("/remove", auth.required, errorHandler(budgetAction_delete));
 export default router;
