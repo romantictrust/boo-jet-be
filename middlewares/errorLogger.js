@@ -14,6 +14,7 @@ const errorLogger = (req, res) => {
       ).toISOString()}\r\nMethod: ${req.method}\r\nURL: ${req.originalUrl}\r\n`
     );
     accessLogSteam.write(`Params: ${JSON.stringify(req.payload)}\r\n`);
+    accessLogSteam.write(`Req Body: ${JSON.stringify(req.body)}\r\n`);
     accessLogSteam.write(`Error: ${res.error}\r\n`);
     accessLogSteam.write(`\r\n`);
   }
