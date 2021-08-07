@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import UsersModel from "../models/Users.js";
 
-export const widget_post = (req, res) => {
+export const widget_post = (req, res, next) => {
   const user = req.body.user;
   const widget = req.body.widget;
 
@@ -15,16 +15,19 @@ export const widget_post = (req, res) => {
     { new: true }
   ).exec((err, user) => {
     if (err) {
-      res.status(500).json({
-        error: `Cannot save new budget`,
+      const errorMsg = `Cannot save new budget`;
+      res.status(400).json({
+        error: errorMsg,
       });
+      res.error = errorMsg;
+      next();
     } else {
       res.status(200).send(user.widgets);
     }
   });
 };
 
-export const widget_edit = (req, res) => {
+export const widget_edit = (req, res, next) => {
   const widget = req.body.widget;
 
   return UsersModel.findOneAndUpdate(
@@ -42,9 +45,12 @@ export const widget_edit = (req, res) => {
     { new: true },
     (err, user) => {
       if (err) {
-        res.status(500).json({
-          error: `Cannot edit budget`,
+        const errorMsg = `Cannot edit budget`;
+        res.status(400).json({
+          error: errorMsg,
         });
+        res.error = errorMsg;
+        next();
       } else {
         res.status(200).send(user.widgets);
       }
@@ -52,20 +58,23 @@ export const widget_edit = (req, res) => {
   );
 };
 
-export const widgets_get = (req, res) => {
+export const widgets_get = (req, res, next) => {
   const userId = req.params.userId;
   return UsersModel.findById(userId).exec((err, user) => {
     if (err) {
-      res.status(500).json({
-        error: `Cannot get widgets`,
+      const errorMsg = `Cannot get widgets`;
+      res.status(400).json({
+        error: errorMsg,
       });
+      res.error = errorMsg;
+      next();
     } else {
       res.status(200).send(user.widgets);
     }
   });
 };
 
-export const widget_delete = (req, res) => {
+export const widget_delete = (req, res, next) => {
   const user = req.body.user;
   const widget = req.body.widget;
 
@@ -77,9 +86,12 @@ export const widget_delete = (req, res) => {
     { new: true }
   ).exec((err, user) => {
     if (err) {
-      res.status(500).json({
-        error: `Cannot remove widget`,
+      const errorMsg = `Cannot remove widget`;
+      res.status(400).json({
+        error: errorMsg,
       });
+      res.error = errorMsg;
+      next();
     } else {
       res.status(200).send(user.widgets);
     }

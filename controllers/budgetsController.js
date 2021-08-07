@@ -1,6 +1,6 @@
 import UsersModel from "../models/Users.js";
 
-export const budget_post = (req, res) => {
+export const budget_post = (req, res, next) => {
   const user = req.body.user;
   const budget = req.body.budget;
 
@@ -12,16 +12,19 @@ export const budget_post = (req, res) => {
     { new: true }
   ).exec((err, user) => {
     if (err) {
+      const errorMsg = `Cannot save new budget`;
       res.status(500).json({
-        error: `Cannot save new budget`,
+        error: errorMsg,
       });
+      res.error = errorMsg;
+      next();
     } else {
       res.status(200).send(user.budgetSources);
     }
   });
 };
 
-export const budget_edit = (req, res) => {
+export const budget_edit = (req, res, next) => {
   const budget = req.body.budget;
 
   return UsersModel.findOneAndUpdate(
@@ -36,9 +39,12 @@ export const budget_edit = (req, res) => {
     { new: true },
     (err, user) => {
       if (err) {
+        const errorMsg = `Cannot edit budget`;
         res.status(500).json({
-          error: `Cannot edit budget`,
+          error: errorMsg,
         });
+        res.error = errorMsg;
+        next();
       } else {
         res.status(200).send(user.budgetSources);
       }
@@ -46,20 +52,23 @@ export const budget_edit = (req, res) => {
   );
 };
 
-export const budgets_get = (req, res) => {
+export const budgets_get = (req, res, next) => {
   const userId = req.params.userId;
   return UsersModel.findById(userId).exec((err, user) => {
     if (err) {
+      const errorMsg = `Cannot get budgets`;
       res.status(500).json({
-        error: `Cannot get budgets`,
+        error: errorMsg,
       });
+      res.error = errorMsg;
+      next();
     } else {
       res.status(200).send(user.budgetSources);
     }
   });
 };
 
-export const budget_delete = (req, res) => {
+export const budget_delete = (req, res, next) => {
   const user = req.body.user;
   const budget = req.body.budget;
 
@@ -71,9 +80,12 @@ export const budget_delete = (req, res) => {
     { new: true }
   ).exec((err, user) => {
     if (err) {
+      const errorMsg = `Cannot remove budget`;
       res.status(500).json({
-        error: `Cannot remove budget`,
+        error: errorMsg,
       });
+      res.error = errorMsg;
+      next();
     } else {
       res.status(200).send(user.budgetSources);
     }

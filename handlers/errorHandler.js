@@ -6,7 +6,7 @@ const errorHandler = (fn) => (req, res, next) => {
   } catch (err) {
     const __dirname = process.cwd();
     let accessLogSteam = fs.createWriteStream(
-      path.join(__dirname, "logs/errors.log"),
+      path.join(__dirname, "logs/unhandledErrors.log"),
       { flags: "a" }
     );
     accessLogSteam.write(

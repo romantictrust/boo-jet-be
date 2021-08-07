@@ -2,13 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
+import fs from "fs";
+import path from "path";
+import { v4 } from "uuid";
 
 import routes from "./routes/index.js";
 import mongoConnect from "./config/db.js";
 import configurePassport from "./config/passport.js";
-import { v4 } from "uuid";
-import fs from "fs";
-import path from "path";
+import errorLogger from "./middlewares/errorLogger.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -49,6 +50,9 @@ configurePassport();
 
 // use routes
 app.use("/", routes);
+
+// ending middlewares
+app.use(errorLogger);
 
 // not found page
 app.use((req, res) => {

@@ -8,7 +8,7 @@ const getOperation = (budgetActionType, inverse = false) => {
   return inverse ? inverseOperation : operation;
 };
 
-export const budgetAction_post = (req, res) => {
+export const budgetAction_post = (req, res, next) => {
   const budgetId = req.body.budgetId;
   const action = req.body.budgetAсtion;
 
@@ -25,17 +25,20 @@ export const budgetAction_post = (req, res) => {
     { new: true }
   ).exec((err, user) => {
     if (err) {
-      res.status(500).json({
+      const errorMsg = `Cannot save new action`;
+      res.status(400).json({
         er: err,
-        error: `Cannot save new action`,
+        error: errorMsg,
       });
+      res.error = errorMsg;
+      next();
     } else {
       res.status(200).send(user.budgetSources);
     }
   });
 };
 
-export const budgetAction_edit = (req, res) => {
+export const budgetAction_edit = (req, res, next) => {
   const budgetAction = req.body.budgetAction.action;
   const budgetId = req.body.budgetAction.budgetId;
 
@@ -62,10 +65,13 @@ export const budgetAction_edit = (req, res) => {
       new: true,
     },
     (err) => {
+      const errorMsg = `Cannot edit action`;
       if (err) {
-        res.status(500).json({
-          error: `Cannot edit action`,
+        res.status(400).json({
+          error: errorMsg,
         });
+        res.error = errorMsg;
+        next();
       } else {
         UsersModel.findOneAndUpdate(
           { "budgetSources._id": budgetId },
@@ -75,9 +81,11 @@ export const budgetAction_edit = (req, res) => {
           { new: true },
           (err, user) => {
             if (err) {
-              res.status(500).json({
-                error: `Cannot edit action`,
+              res.status(400).json({
+                error: errorMsg,
               });
+              res.error = errorMsg;
+              next();
             } else {
               res.status(200).send(user.budgetSources);
             }
@@ -88,7 +96,7 @@ export const budgetAction_edit = (req, res) => {
   );
 };
 
-export const budgetAction_delete = (req, res) => {
+export const budgetAction_delete = (req, res, next) => {
   const user = req.body.user;
   const budgetAction = req.body.budgetAction.action;
   const budgetId = req.body.budgetAction.budgetId;
@@ -104,10 +112,13 @@ export const budgetAction_delete = (req, res) => {
       new: true,
     },
     (err) => {
+      const errorMsg = `Cannot delete action`;
       if (err) {
-        res.status(500).json({
-          error: `Cannot delete action`,
+        res.status(400).json({
+          error: errorMsg,
         });
+        res.error = errorMsg;
+        next();
       } else {
         UsersModel.findOneAndUpdate(
           { "budgetSources._id": budgetId },
@@ -119,9 +130,11 @@ export const budgetAction_delete = (req, res) => {
           { new: true },
           (err, user) => {
             if (err) {
-              res.status(500).json({
-                error: `Cannot delete action`,
+              res.status(400).json({
+                error: errorMsg,
               });
+              res.error = errorMsg;
+              next();
             } else {
               res.status(200).send(user.budgetSources);
             }
