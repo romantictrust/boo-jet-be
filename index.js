@@ -4,12 +4,12 @@ import cors from "cors";
 import morgan from "morgan";
 import fs from "fs";
 import path from "path";
-import { v4 } from "uuid";
 
 import routes from "./routes/index.js";
 import mongoConnect from "./config/db.js";
 import configurePassport from "./config/passport.js";
 import errorLogger from "./middlewares/errorLogger.js";
+import assignId from "./middlewares/assignId.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -25,10 +25,6 @@ mongoConnect()
   .catch((err) => console.log(err));
 
 morgan.token("id", (req) => req.id);
-const assignId = (req, res, next) => {
-  req.id = v4();
-  next();
-};
 let accessLogSteam = fs.createWriteStream(
   path.join(__dirname, "logs/access.log"),
   { flags: "a" }
@@ -46,6 +42,7 @@ app.use(
 );
 app.set("json spaces", 2);
 app.set("view engine", "ejs");
+
 configurePassport();
 
 // use routes

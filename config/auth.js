@@ -22,7 +22,7 @@ const auth = {
     function (err, req, res, next) {
       if (err.code === "invalid_token") {
         res.status(err.status).send({
-          error: "Please refresh your session: Sign out then sign in again",
+          error: "Please refresh your session",
         });
       }
     },

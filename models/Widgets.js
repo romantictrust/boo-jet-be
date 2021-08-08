@@ -32,5 +32,3 @@ const WidgetsSchema = new Schema({
 });
 mongoose.model("Widgets", WidgetsSchema, 'users');
 export default WidgetsSchema;
-
-// https://stackoverflow.com/questions/38051977/what-does-populate-in-mongoose-mean
